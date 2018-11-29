@@ -12,6 +12,5 @@ options (record, output, materials, Eigen)
 structure pour update
 dependencies (*ffmpeg, *eigen, *opengl, *openMp)
 -->
-Papier de base
 
 (Materials)
