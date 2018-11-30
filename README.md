@@ -2,6 +2,13 @@
 
 2D implementation of the Material Point Method.
 ![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)
+## Sections
+- [Overview](#Overview)
+- [Dependencies](#Dependencies)
+- [Code structure](#Code-structure)
+- [Implementation](#Implementation)
+- [Options](#Options)
+<br><br>
 
 ## Overview
 C++ implementation of the Material Point Method.
@@ -135,7 +142,7 @@ const static int Y_GRID = 64;
 ```
 - Particle:
 ```C++
-// Select Particle subclass (material type)
+// Select Particle subclass (material type). Water or DrySand so far
 #define Material NewMaterial
 // Decide wether or not to apply friction
 #define FRICTION true
