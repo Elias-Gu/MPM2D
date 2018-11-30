@@ -4,13 +4,20 @@
 
 ![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)
 
----
-
 ## Overview
 C++ implementation of the Material Point Method.
-<!--
-describe algorithm
--->
+
+The [Material Point Method](https://www.seas.upenn.edu/~cffjiang/research/mpmcourse/mpmcourse.pdf) is a numerical technique used to simulate the behavior of continuum materials.
+
+The continuum body is described by a number a Lagrangian elements : the material points.
+Kinematic equations are solved on the material points  
+The material points are surrounded by a background Eulerian grid where the dynamic equations are solved.
+
+It can be summarize in 4 main steps:
+1. Transfer data from particles de grid nodes
+2. Update node state (apply forces)
+3. Transfer data from grid nodes to particles
+4. Update particles state
 <br><br>
 
 ## Dependencies
@@ -53,6 +60,26 @@ Here are the main features of this implementation:
 
 #### Add material type:
 It is easy to add a new type of material. In `particle.h` and `particle.cpp`, create a new subclasse of `Particle`. Beside constructors, the subclass must contain the following functions:
+- In `particle.h`:
+```C++
+static std::vector<NewMaterial> InitializeParticles() {
+        // Define initial particle mass, volume, position, velocity and acceleration
+        std::vector<Water> outParticles;
+        // ...
+	return outParticles;
+}
+```
+```C++
+static std::vector<Water> AddParticles() {
+        // Define mass, volume, position, velocity and acceleration of particles to add during the simulation
+	std::vector<Water> outParticles;
+        // ...
+	return outParticles;
+}
+```
+
+
+- In `particle.cpp`:
 ```C++
 void NewMaterial::ConstitutiveModel() {
     // Update Ap (pre-update deformation gradient)
@@ -71,27 +98,41 @@ void NewMaterial::DrawParticle() {
     // OpenGL output of particle points
 }
 ```
+<br><br>
 
-<!--
-## Implementation(how to add particles type) 
-### Papers
-### options (output dir)
+## Options
+Here is a list of different options available. They can be modify in the `constants.h` file.
+- Grid:
+```C++
+// Size of the domain
+const static int X_GRID = 128;
+const static int Y_GRID = 64;
+```
+- Particle:
+```C++
+// Select Particle subclass (material type)
+#define Material NewMaterial
+// Decide wether or not to apply friction
+#define FRICTION true
+```
 
-## References (autres implementation)
+- Transfer particles <-> grid:
+```C++
+// Interpolation type: [1] Cubic - [2] Quadratic
+#define INTERPOLATION 1	
+// Time-step (typically about 1e-4)
+const static float DT = 0.0001f;
+```
+- Output (outputs will be generated in the `out/` directory):
+```C++
+// Generate a .mp4 of the OpenGL window
+#define RECORD_VIDEO true
+// Generate a .ply file with node coordinates
+#define WRITE_TO_FILE false	
+// Draw nodes (active nodes have a different color)
+#define DRAW_NODES false        // not recommended (slow)
+```
+<br><br>
 
-## In the work (3D, open ACC, implicit, autre transfer sheme)
--->
-
-
-
-
-<!--
-- Papier de base
-- Matierials and papier
--
-- Autres implementations interessantes
-Screenshots
-options (record, output, materials, Eigen)
-structure pour update
-dependencies (*ffmpeg, *eigen, *opengl, *openMp)
--->
+### In progress
+I am working on a more complete 3D version which will include GPU computing, implicit grid update, and other transfer schemes.
