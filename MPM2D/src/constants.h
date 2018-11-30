@@ -2,25 +2,39 @@
 
 #include <Algebra/algebra.h>
 
+
 /* -----------------------------------------------------------------------
-|								   GRID									 |
+|									OPTIONS								 |
 ----------------------------------------------------------------------- */
 
-
+// Grid
 const static int X_GRID = 128;							// Size of the domain
 const static int Y_GRID = 32;
 
-const static float H_INV = 1.0f;
+// Transfer
+#define INTERPOLATION 1									// [1] Cubic - [2] Quadratic
+const static float DT = 0.0005f;						// Time-step
+
+// Ouput
+#define RECORD_VIDEO false
+#define WRITE_TO_FILE false								// Write to file disables visual output
+#define DRAW_NODES false								// Drawing node option
+
+// Material
+#define Material Water									// [Water] - [DrySand]
 
 
 
 /* -----------------------------------------------------------------------
-|								TRANSFER								 |
+|								CONSTANTS								 |
 ----------------------------------------------------------------------- */
-#define INTERPOLATION 1
 
-const static float DT = 0.0005f;						// Time-step
 
+/* ----- GRID ----- */
+const static float H_INV = 1.0f;
+
+
+/* ----- TRANSFER ----- */
 #if INTERPOLATION == 1
 const static int CUB = 2;
 const static Vector2f Translation_xp = Vector2f(0.0f);
@@ -35,16 +49,8 @@ static const float Dp_scal = 4.0f;
 #endif
 
 
-
-/* -----------------------------------------------------------------------
-|							    RENDERING								 |
------------------------------------------------------------------------ */
-#define RECORD_VIDEO false
-#define WRITE_TO_FILE false								// Write to file disables visual output
-#define DRAW_NODES false								// Drawing node option
-
-
-const static int X_WINDOW = 1800;						// Window size
+/* ----- RENDERING ----- */
+const static int X_WINDOW = 2300;						// Window size
 const static int Y_WINDOW = X_WINDOW * Y_GRID / X_GRID;
 
 #if RECORD_VIDEO || WRITE_TO_FILE
@@ -55,12 +61,12 @@ const static float DT_render = DT * 30.0f;				// Rate of frame rendered (OpenGL)
 #endif				
 
 
-
-/* -----------------------------------------------------------------------
-|							  MATERIAL POINTS							 |
------------------------------------------------------------------------ */
-#define Material Water									// [Water] - [DrySand]
+/* ----- MATERIAL POINTS ----- */
+#if Material == Water
 #define FRICTION false
+#else
+#define FRICTION true
+#endif
 
 const static Vector2f G = Vector2f(0.0f, -9.81f);		// Gravity
 const static float CFRI = 0.3f;							// Friction coefficient		

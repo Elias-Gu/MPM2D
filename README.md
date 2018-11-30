@@ -144,8 +144,6 @@ const static int Y_GRID = 64;
 ```C++
 // Select Particle subclass (material type). Water or DrySand so far
 #define Material NewMaterial
-// Decide wether or not to apply friction
-#define FRICTION true
 ```
 
 - Transfer particles <-> grid:
