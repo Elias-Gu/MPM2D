@@ -1,9 +1,8 @@
 # MPM2D
 
 2D implementation of the Material Point Method.
-<!--
 ![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)
--->
+
 ## Overview
 C++ implementation of the Material Point Method.
 
