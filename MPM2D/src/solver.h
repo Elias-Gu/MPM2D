@@ -44,6 +44,7 @@ public:
 
 
 	/* Static functions */
+	#if INTERPOLATION == 1
 	static float Bspline(float x)					// Cubic Bspline
 	{
 		float W;
@@ -79,6 +80,45 @@ public:
 
 		return dW;
 	}
+
+
+	#elif INTERPOLATION == 2
+	static float Bspline(float x)
+	{
+		float W;
+		x = fabs(x);
+
+		if (x < 0.5f)
+			W = -x * x + 3 / 4.0f;
+
+		else if (x < 1.5f)
+			W = x * x / 2.0f - 3 * x / 2.0f + 9 / 8.0f;
+		
+		else
+			W = 0;
+
+		return W;
+	}
+
+
+	static float dBspline(float x)
+	{
+		float dW;
+		float x_abs;
+		x_abs = fabs(x);
+
+		if (x_abs < 0.5f)
+			dW = -2.0f * x;
+		
+		else if (x_abs < 1.5f)
+			dW = x - 3 / 2.0f * x / x_abs;
+		
+		else
+			dW = 0;
+
+		return dW;
+	}
+	#endif
 
 
 	static float getWip(const Vector2f& dist)		// 2D weight

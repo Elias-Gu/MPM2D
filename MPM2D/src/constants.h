@@ -17,14 +17,22 @@ const static float H_INV = 1.0f;
 /* -----------------------------------------------------------------------
 |								TRANSFER								 |
 ----------------------------------------------------------------------- */
+#define INTERPOLATION 1
 
+const static float DT = 0.0005f;						// Time-step
 
-const static float DT = 0.001f;						// Time-step
-
+#if INTERPOLATION == 1
 const static int CUB = 2;
-const static Vector2f Translation_xp = Vector2f(0);
+const static Vector2f Translation_xp = Vector2f(0.0f);
 static const int bni = -1;
 static const float Dp_scal = 3.0f;
+
+#elif INTERPOLATION == 2
+const static float CUB = 1.5f;
+const static Vector2f Translation_xp = Vector2f(0.5f);
+static const int bni = 0;
+static const float Dp_scal = 4.0f;
+#endif
 
 
 
@@ -51,8 +59,8 @@ const static float DT_render = DT * 30.0f;				// Rate of frame rendered (OpenGL)
 /* -----------------------------------------------------------------------
 |							  MATERIAL POINTS							 |
 ----------------------------------------------------------------------- */
-#define Material Water
-#define FRICTION true
+#define Material Water									// [Water] - [DrySand]
+#define FRICTION false
 
 const static Vector2f G = Vector2f(0.0f, -9.81f);		// Gravity
 const static float CFRI = 0.3f;							// Friction coefficient		
