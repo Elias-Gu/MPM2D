@@ -70,7 +70,7 @@ static std::vector<NewMaterial> InitializeParticles() {
 }
 ```
 ```C++
-static std::vectorNewMaterial> AddParticles() {
+static std::vector<NewMaterial> AddParticles() {
         // Define mass, volume, position, velocity and acceleration of particles to add during the simulation
 	std::vector<NewMaterial> outParticles;
         // ...
