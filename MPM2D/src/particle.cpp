@@ -94,7 +94,6 @@ void Water::UpdateDeformation(const Matrix2f& T)
 
 
 // Dry Sand: http://www.math.ucla.edu/~jteran/papers/KGPSJT16.pdf 
-//TODO: faster with vector instead of matrix (super slow)
 void DrySand::ConstitutiveModel()
 {
 	Matrix2f U, V;
