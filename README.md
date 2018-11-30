@@ -64,15 +64,15 @@ It is easy to add a new type of material. In `particle.h` and `particle.cpp`, cr
 ```C++
 static std::vector<NewMaterial> InitializeParticles() {
         // Define initial particle mass, volume, position, velocity and acceleration
-        std::vector<Water> outParticles;
+        std::vector<NewMaterial> outParticles;
         // ...
 	return outParticles;
 }
 ```
 ```C++
-static std::vector<Water> AddParticles() {
+static std::vectorNewMaterial> AddParticles() {
         // Define mass, volume, position, velocity and acceleration of particles to add during the simulation
-	std::vector<Water> outParticles;
+	std::vector<NewMaterial> outParticles;
         // ...
 	return outParticles;
 }
@@ -99,7 +99,6 @@ void NewMaterial::DrawParticle() {
 }
 ```
 <br><br>
-
 ## Options
 Here is a list of different options available. They can be modify in the `constants.h` file.
 - Grid:
