@@ -1,9 +1,9 @@
 # MPM2D
 
 2D implementation of the Material Point Method.
-
+<!--
 ![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)
-
+-->
 ## Overview
 C++ implementation of the Material Point Method.
 
@@ -31,7 +31,7 @@ The following libraries are includes in the `ext/` directory:
 - [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
         - Alternatively, `Eigen` can be used to replace `Algebra`, but it is not as fast. The source code is in `ext/Eigen/MPM2D/src/` (not updated).
 
-The following are optional dependencies :
+The followings are optional dependencies :
 - [ffmpeg](https://www.ffmpeg.org/)
         - Output .mp4 videos.
 - [OpenMP](https://www.openmp.org/)
@@ -98,7 +98,34 @@ void NewMaterial::DrawParticle() {
     // OpenGL output of particle points
 }
 ```
+
+#### Change domain geometry:
+The shape of the domain can be changed, but is has to follow this rules:
+- It has to be [convex](https://www.easycalculation.com/maths-dictionary/images/convex-nonconvex-set.png).
+- It has to be included in [`CUB` ; `X_GRID - CUB`] x [`CUB` ; `Y_GRID - CUB`], where `CUB` is the range of the interpolation function (2 for Cubic, 1.5 for Quadratic).
+- Borders have to be straight lines.
+
+To modify the domain, in `border.h`, use the `InitializeBorders` static function:
+```C++
+static std::vector<Border> InitializeBorders() {
+        std::vector<Border> outBorders;
+        std::vector<Vector2f> Corners;
+
+        // New border line
+	Corners.push_back(Vector2f(X1, Y1));    // First point
+	Corners.push_back(Vector2f(X2, Y2));    // Second point
+        // type can be [1](sticky), [2](Separating) or [3](Sliding)
+        // normal has to be oriented inside the domain and normalized
+	outBorders.push_back(Border(type, normal, Corners));
+	Corners.clear();
+
+        // Add other border
+
+	return outBorders;
+}
+```
 <br><br>
+
 ## Options
 Here is a list of different options available. They can be modify in the `constants.h` file.
 - Grid:
