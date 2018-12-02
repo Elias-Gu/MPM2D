@@ -170,3 +170,84 @@ public:
 		return outParticles;
 	}				
 };
+
+
+
+/* SNOW */
+class Snow : public Particle
+{
+public:
+
+	/* Data */
+	Matrix2f Ap;												// For computation purpose
+
+	Matrix2f Fe, FeTr;											// (Trial) Elastic deformation
+	Matrix2f Fp, FpTr;											// (Trial) Plastic deformation
+	float Je, Jp;												// Deformation gradients		
+
+	float lam;													// Lame parameters
+	float mu;
+
+	float s, r;													// size and color
+
+
+
+	/* Constructors */
+	Snow() : Particle() {};
+	Snow(const float inVp0, const float inMp,
+		const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp);
+	Snow(Particle p);
+	~Snow() {};
+
+
+
+	/* Functions */
+	void ConstitutiveModel();								// Deformation gradient increment
+	void UpdateDeformation(const Matrix2f& T);				// Deformation gradient update
+	void Plasticity();										// Update plastic dissipation
+
+	void DrawParticle();
+
+
+
+	/* Static Functions */
+	static std::vector<Snow> InitializeParticles()
+	{
+		std::vector<Snow> outParticles;
+		DefaultPRNG PRNG;
+
+		std::vector<sPoint> P_c = GeneratePoissonPoints(3000, PRNG, 30, true);
+		int NP = static_cast <int>(P_c.size());
+
+		float R_BALL = fmin(float(X_GRID), float(Y_GRID)) * 0.33f;
+		float X_BALL = X_GRID * 0.3f;
+		float Y_BALL = Y_GRID * 0.45f;
+
+		float VOL = 2 * PI*R_BALL*R_BALL / static_cast<float>(NP);
+		float MASS = VOL * RHO_snow / 100.0f;
+
+		Vector2f v = Vector2f(40, 0);							// Initial velocity
+		Matrix2f a = Matrix2f(0);
+
+		for (int p = 0; p < NP; p++)
+		{
+			Vector2f pos = Vector2f(P_c[p].x * R_BALL + X_BALL, P_c[p].y * R_BALL + Y_GRID - Y_BALL);
+			outParticles.push_back(Snow(VOL, MASS, pos, v, a));
+		}
+		for (int p = 0; p < NP; p++)
+		{
+			Vector2f pos = Vector2f(P_c[p].x * R_BALL + X_GRID - X_BALL, P_c[p].y * R_BALL + Y_BALL);
+			outParticles.push_back(Snow(VOL, MASS, pos, -v, a));
+		}
+
+		return outParticles;
+	}
+
+
+	static std::vector<Snow> AddParticles()					// Add particle mid-simulation
+	{
+		std::vector<Snow> outParticles;
+		return outParticles;
+	}
+};
+

@@ -66,6 +66,12 @@ float Vector2f::sum() const {
 	return val[0] + val[1];
 }
 
+// clamp(Vector) between low and high
+const Vector2f Vector2f::clamp(const float low, const float high) const {
+	return Vector2f(std::clamp(val[0], low, high),
+		std::clamp(val[1], low, high));
+}
+
 // SetData pointers
 void Vector2f::setData(const float x0, const float x1) {
 	val[0] = x0; val[1] = x1;
@@ -234,15 +240,27 @@ const Matrix2f Matrix2f::operator-() const {
 		-val[1][0], -val[1][1]);
 }
 
+// Matrix^(-1)
+const Matrix2f Matrix2f::inv() const {
+	float det = Matrix2f(*this).det();
+	return Matrix2f(val[1][1], -val[0][1],
+		-val[1][0], val[0][0]) / det;
+}
+
 // tr(Matrix)
 float Matrix2f::trace() const {
 	return val[0][0] + val[1][1];
 }
 
+// det(Matrix)
+float Matrix2f::det() const {
+	return val[0][0] * val[1][1] - val[0][1] * val[1][0];
+}
+
 // SVD(Matrix)
+//http://www.ualberta.ca/~mlipsett/ENGM541/Readings/svd_ellis.pdf
+//https://github.com/victorliu/Cgeom/blob/master/geom_la.c
 void Matrix2f::svd(Matrix2f* U, Vector2f* Eps, Matrix2f* V) const {
-	//http://www.ualberta.ca/~mlipsett/ENGM541/Readings/svd_ellis.pdf
-	//https://github.com/victorliu/Cgeom/blob/master/geom_la.c
 	float MATRIX_EPSILON = 1e-6f;
 	if (fabs(val[0][1] - val[1][0]) < MATRIX_EPSILON && fabs(val[0][1]) < MATRIX_EPSILON) {
 		U->setData(val[0][0] < 0.0f ? -1.0f : 1.0f, 0.0f, 0.0f, val[1][1] < 0.0f ? -1.0f : 1.0f);
@@ -281,6 +299,14 @@ void Matrix2f::svd(Matrix2f* U, Vector2f* Eps, Matrix2f* V) const {
 				(val[1][1] * v_c - val[0][1] * v_s) / s2);
 		}
 	}
+}
+
+// polar decomposition
+// http://www.cs.cornell.edu/courses/cs4620/2014fa/lectures/polarnotes.pdf
+void Matrix2f::polar_decomp(Matrix2f* R, Matrix2f* S) const {
+	float th = atan2(val[1][0] - val[0][1], val[0][0] + val[1][1]);
+	*R = Matrix2f(cos(th), -sin(th), sin(th), cos(th));
+	*S = R->transpose() * *this;
 }
 
 // SetData pointers

@@ -73,6 +73,42 @@ DrySand::DrySand(Particle p)
 }
 
 
+//
+Snow::Snow(const float inVp0, const float inMp,
+	const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp)
+	: Particle(inVp0, inMp, inXp, inVp, inBp)
+{
+	Ap.setZeros();
+
+	Fe.setIdentity(); FeTr.setIdentity();
+	Fp.setIdentity(); FpTr.setIdentity();
+	Je = 1.0f; Jp = 1.0f;
+
+	lam = LAM_snow;
+	mu = MU_snow;
+
+	s = ((float)rand() / (RAND_MAX)) * 7;
+	r = 1 - ((float)rand() / (RAND_MAX)) * 0.23f;
+}
+
+
+Snow::Snow(Particle p)
+	: Particle(p.Vp0, p.Mp, p.Xp, p.Vp, p.Bp)
+{
+	Ap.setZeros();
+
+	Fe.setIdentity(); FeTr.setIdentity();
+	Fp.setIdentity(); FpTr.setIdentity();
+	Je = 1.0f; Jp = 1.0f;
+
+	lam = LAM_snow;
+	mu = MU_snow;
+
+	s = ((float)rand() / (RAND_MAX)) * 7;
+	r = 1 - ((float)rand() / (RAND_MAX)) * 0.23f;
+}
+
+
 
 /* -----------------------------------------------------------------------
 |							PHYSICAL MODEL								 |
@@ -165,6 +201,48 @@ void DrySand::Projection(const Vector2f& Eps, Vector2f* T, float* dq)
 }
 
 
+// Snow: https://www.math.ucla.edu/~jteran/papers/SSCTS13.pdf
+// http://alexey.stomakhin.com/research/siggraph2013_tech_report.pdf
+void Snow::ConstitutiveModel()
+{
+	Matrix2f Re, Se;
+	Fe.polar_decomp(&Re, &Se);
+
+	Matrix2f dFe = 2 * mu*(Fe - Re)* Fe.transpose() + lam * (Je - 1) * Je * Matrix2f(1, 0, 0, 1);
+	Ap = dFe * Vp0;
+}
+
+
+void Snow::UpdateDeformation(const Matrix2f& T)
+{
+	FeTr = (Matrix2f(1, 0, 0, 1) + DT * T) * Fe;
+	FpTr = Fp;
+
+	Snow::Plasticity();
+}
+
+
+void Snow::Plasticity()
+{
+	Matrix2f U, V;
+	Vector2f Eps;
+	FeTr.svd(&U, &Eps, &V);
+	
+	Vector2f T = Eps.clamp(1 - THT_C_snow, 1 + THT_S_snow);		// Projection
+
+	Fe = U.diag_product(T) * V.transpose();
+	Fp = V.diag_product_inv(T).diag_product(Eps) * V.transpose() * FpTr;
+
+	Je = Fe.det();		
+	Jp = Fp.det();
+
+	// Hardening
+	float exp = std::exp(KSI_snow*(1.0f - Jp));
+	lam = LAM_snow * exp;
+	mu = MU_snow * exp;
+}
+
+
 
 /* -----------------------------------------------------------------------
 |								RENDERING								 |
@@ -216,6 +294,19 @@ void DrySand::DrawParticle()
 		glColor3f(0.59f, 0.43f, 0.20f);
 	else
 		glColor3f(0.64f, 0.48f, 0.25f);
+
+	glEnable(GL_POINT_SMOOTH);
+	glBegin(GL_POINTS);
+	glVertex2f(Xp[0], Xp[1]);
+	glEnd();
+}
+
+
+//
+void Snow::DrawParticle()
+{
+	glPointSize(s);
+	glColor3f(r, r, r);
 
 	glEnable(GL_POINT_SMOOTH);
 	glBegin(GL_POINTS);

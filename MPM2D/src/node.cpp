@@ -13,8 +13,6 @@ Node::Node(const Vector2f& inXi)
 	Fi.setZeros();
 }
 
-// TODO: Use vector from initialization in main.
-// Not to important: happens just once.
 std::vector<Border> Node::borders = Border::InitializeBorders();
 size_t Node::blen = Node::borders.size();
 

@@ -14,7 +14,7 @@ int t_count = 0;
 #if !WRITE_TO_FILE && RECORD_VIDEO
 std::string str_cmd = "ffmpeg -r " + std::to_string(FPS) + " -f rawvideo -pix_fmt rgba -s "
 + std::to_string(X_WINDOW) + "x" + std::to_string(Y_WINDOW)
-+ " -i - -threads 0 -preset fast -y -pix_fmt yuv420p -crf 21 -vf vflip Output/movie.mp4";
++ " -i - -threads 0 -preset fast -y -pix_fmt yuv420p -crf 21 -vf vflip out/movie.mp4";
 const char* cmd = str_cmd.c_str();
 FILE* ffmpeg = _popen(cmd, "wb");
 int* buffer = new int[X_WINDOW * Y_WINDOW];

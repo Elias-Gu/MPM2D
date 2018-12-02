@@ -48,6 +48,9 @@ public:
 	// sum(Vector) 
 	float sum() const;
 
+	// clamp(Vector) between low and high
+	const Vector2f clamp(const float low, const float high) const;
+
 	// SetData pointers
 	void setData(const float x0, const float x1);
 	void setData(const float x);
@@ -137,11 +140,20 @@ public:
 	// -Matrix
 	const Matrix2f operator-() const;
 
+	// Matrix^(-1)
+	const Matrix2f inv() const;
+
 	// tr(Matrix)
 	float trace() const;
 
+	// det(Matrix)
+	float det() const;
+
 	// SVD(Matrix)
 	void svd(Matrix2f* U, Vector2f* Eps, Matrix2f* V) const;
+
+	// polar decomposition
+	void polar_decomp(Matrix2f* R, Matrix2f* S) const;
 
 	// SetData pointers
 	void setData(const float x00, const float x01, const float x10, const float x11);
