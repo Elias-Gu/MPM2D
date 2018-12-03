@@ -109,6 +109,27 @@ Snow::Snow(Particle p)
 }
 
 
+//
+Elastic::Elastic(const float inVp0, const float inMp,
+	const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp,
+	const float inlam, const float inmu, const float inr, const float ing, const float inb)
+	: Particle(inVp0, inMp, inXp, inVp, inBp)
+{
+	Ap.setZeros();
+	Fe.setIdentity(); 
+	lam = inlam; mu = inmu;
+	r = inr; g = ing; b = inb;
+}
+
+
+Elastic::Elastic(Particle p)
+	: Particle(p.Vp0, p.Mp, p.Xp, p.Vp, p.Bp)
+{
+	Ap.setZeros();
+	Fe.setIdentity();
+}
+
+
 
 /* -----------------------------------------------------------------------
 |							PHYSICAL MODEL								 |
@@ -243,6 +264,23 @@ void Snow::Plasticity()
 }
 
 
+// Elastic
+void Elastic::ConstitutiveModel()
+{
+	Matrix2f Re, Se;
+	Fe.polar_decomp(&Re, &Se);
+	float Je = Fe.det();
+
+	Matrix2f dFe = 2 * mu*(Fe - Re)* Fe.transpose() +  lam * (Je - 1) * Je * Matrix2f(1, 0, 0, 1);
+	Ap = dFe * Vp0;
+}
+
+void Elastic::UpdateDeformation(const Matrix2f& T)
+{
+	Fe = (Matrix2f(1, 0, 0, 1) + DT * T) * Fe;
+}
+
+
 
 /* -----------------------------------------------------------------------
 |								RENDERING								 |
@@ -307,6 +345,19 @@ void Snow::DrawParticle()
 {
 	glPointSize(s);
 	glColor3f(r, r, r);
+
+	glEnable(GL_POINT_SMOOTH);
+	glBegin(GL_POINTS);
+	glVertex2f(Xp[0], Xp[1]);
+	glEnd();
+}
+
+
+//
+void Elastic::DrawParticle()
+{
+	glPointSize(10);
+	glColor3f(r*0.8f, g*0.8f, b*0.8f);
 
 	glEnable(GL_POINT_SMOOTH);
 	glBegin(GL_POINTS);

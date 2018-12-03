@@ -1,8 +1,9 @@
 # MPM2D
 
 2D implementation of the Material Point Method.
-![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)
+-> ![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif) <-
 ![snow](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/snow.gif)
+![elastic](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/elastic.gif)
 ## Sections
 - [Overview](#Overview)
 - [Dependencies](#Dependencies)
@@ -59,7 +60,7 @@ The code, located in `src/`, is structured as following:
 
 #### Characteristics:
 Here are the main features of this implementation:
-- Sand, Water and Snow simulatiosn already implemented
+- Sand, Water, Snow and purely elastic simulatiosn already implemented
 - 2D.
 - Affine-Particle-in-Cell ([APIC](http://www.math.ucla.edu/~jteran/papers/JSSTS15.pdf)) transfer type.
 -  B-Spline Quadratic or Cubic interpolation functions (Quadratic is faster, but not as precise).
@@ -144,7 +145,7 @@ const static int Y_GRID = 64;
 ```
 - Particle:
 ```C++
-// Select Particle subclass (material type). [Water], [DrySand], [Snow]
+// Select Particle subclass (material type). [Water], [DrySand], [Snow], [Elastic]
 #define Material NewMaterial
 ```
 

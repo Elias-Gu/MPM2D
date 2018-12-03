@@ -21,7 +21,7 @@ const static float DT = 0.0005f;						// Time-step
 #define DRAW_NODES false								// Drawing node option
 
 // Material
-#define Material Snow									// [Water] - [DrySand]
+#define Material Elastic									// [Water] - [DrySand] - [Snow] - [Elastic]
 
 
 
@@ -108,3 +108,13 @@ static const float LAM_snow =							// Lame parameters
 E_snow * V_snow / (1.0f + V_snow) / (1.0f - 2.0f * V_snow); 
 static const float MU_snow =
 E_snow / (1.0f + V_snow) / 2.0f;
+
+
+/* Elastic */
+static const float RHO_elastic = 4.0e2;					// Density
+static const float E_elastic = 1.4e5;					// Young's modulus
+static const float V_elastic = 0.2f;					// Poisson's ratio
+static const float LAM_elastic =						// Lame parameters
+E_elastic * V_elastic / (1.0f + V_elastic) / (1.0f - 2.0f * V_elastic);
+static const float MU_elastic =
+E_elastic / (1.0f + V_elastic) / 2.0f;

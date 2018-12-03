@@ -251,3 +251,78 @@ public:
 	}
 };
 
+
+
+/* ELASTIC */
+class Elastic : public Particle
+{
+public:
+
+	/* Data */
+	Matrix2f Ap;												// For computation purpose
+	Matrix2f Fe;												// Elastic deformation
+	float lam, mu;												// Lame parameter
+	float r, g, b;												// color
+
+
+
+	/* Constructors */
+	Elastic() : Particle() {};
+	Elastic(const float inVp0, const float inMp,
+		const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp, 
+		const float inlam, const float inmu, const float inr, const float ing, const float inb);
+	Elastic(Particle p);
+	~Elastic() {};
+
+
+
+	/* Functions */
+	void ConstitutiveModel();								// Deformation gradient increment
+	void UpdateDeformation(const Matrix2f& T);				// Deformation gradient update
+
+	void DrawParticle();
+
+
+
+	/* Static Functions */
+	static std::vector<Elastic> InitializeParticles()
+	{
+		std::vector<Elastic> outParticles;
+
+		std::vector<Vector2f> positions;
+		for (float i = 0; i < fmax(X_GRID, Y_GRID) / 8.0f; i ++)
+			for (float j = 0; j < fmax(X_GRID, Y_GRID) / 8.0f; j ++)
+				positions.push_back(Vector2f(i, j));
+
+		float VOL = (float)fmax(X_GRID, Y_GRID) * (float)fmax(X_GRID, Y_GRID) / 16.0f;
+		float MASS = VOL * RHO_elastic / 100.0f;
+
+		Vector2f v = Vector2f(30, 0);							// Initial velocity
+		Matrix2f a = Matrix2f(0);
+
+		for (size_t p = 0, plen = positions.size(); p < plen; p++)
+		{
+			Vector2f pos = Vector2f(positions[p][0] + X_GRID * 0.1f, positions[p][1] + Y_GRID / 3.0f);
+			outParticles.push_back(Elastic(VOL, MASS, pos, v, a, LAM_elastic*0.1f, MU_elastic*0.1f, 1, 0, 0));
+		}
+		for (size_t p = 0, plen = positions.size(); p < plen; p++)
+		{
+			Vector2f pos = Vector2f(positions[p][0] + X_GRID * 0.325f, positions[p][1] + Y_GRID / 2.0f);
+			outParticles.push_back(Elastic(VOL, MASS, pos, v, a, LAM_elastic, MU_elastic, 0, 0, 1));
+		}
+		for (size_t p = 0, plen = positions.size(); p < plen; p++)
+		{
+			Vector2f pos = Vector2f(positions[p][0] + X_GRID * 0.55f, positions[p][1] + Y_GRID * 2 / 3.0f);
+			outParticles.push_back(Elastic(VOL, MASS, pos, v, a, 100*LAM_elastic, 100*MU_elastic, 0, 1, 0));
+		}
+
+		return outParticles;
+	}
+
+
+	static std::vector<Elastic> AddParticles()					// Add particle mid-simulation
+	{
+		std::vector<Elastic> outParticles;
+		return outParticles;
+	}
+};
