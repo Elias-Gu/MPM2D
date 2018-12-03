@@ -1,7 +1,7 @@
 # MPM2D
 
 2D implementation of the Material Point Method.
-<center>![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)</center>
+<p align="justify">![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)</p>
 ![snow](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/snow.gif)
 ![elastic](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/elastic.gif)
 ## Sections
