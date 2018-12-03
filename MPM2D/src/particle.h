@@ -289,7 +289,7 @@ public:
 	{
 		std::vector<Elastic> outParticles;
 
-		std::vector<Vector2f> positions;
+		std::vector<Vector2f> positions;					// Create cube point cloud
 		for (float i = 0; i < fmax(X_GRID, Y_GRID) / 8.0f; i ++)
 			for (float j = 0; j < fmax(X_GRID, Y_GRID) / 8.0f; j ++)
 				positions.push_back(Vector2f(i, j));
@@ -301,17 +301,17 @@ public:
 		Matrix2f a = Matrix2f(0);
 
 		for (size_t p = 0, plen = positions.size(); p < plen; p++)
-		{
+		{														// 1st cube
 			Vector2f pos = Vector2f(positions[p][0] + X_GRID * 0.1f, positions[p][1] + Y_GRID / 3.0f);
 			outParticles.push_back(Elastic(VOL, MASS, pos, v, a, LAM_elastic*0.1f, MU_elastic*0.1f, 1, 0, 0));
 		}
 		for (size_t p = 0, plen = positions.size(); p < plen; p++)
-		{
+		{														// 2nd cube
 			Vector2f pos = Vector2f(positions[p][0] + X_GRID * 0.325f, positions[p][1] + Y_GRID / 2.0f);
 			outParticles.push_back(Elastic(VOL, MASS, pos, v, a, LAM_elastic, MU_elastic, 0, 0, 1));
 		}
 		for (size_t p = 0, plen = positions.size(); p < plen; p++)
-		{
+		{														// 3rd cube
 			Vector2f pos = Vector2f(positions[p][0] + X_GRID * 0.55f, positions[p][1] + Y_GRID * 2 / 3.0f);
 			outParticles.push_back(Elastic(VOL, MASS, pos, v, a, 100*LAM_elastic, 100*MU_elastic, 0, 1, 0));
 		}
