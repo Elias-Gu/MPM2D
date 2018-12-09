@@ -168,4 +168,8 @@ const static float DT = 0.0001f;
 <br><br>
 
 ### In progress
-I am working on a more complete 3D version which will include GPU computing, implicit grid update, and other transfer schemes.
+I am working on a more complete version that will include:
+- 3D 
+- Sparse Grid parallelisme (CUDA - OpenACC or OpenMP)
+- Implicit grid update
+- Other transfer schemes (MLS-MPM, PolyPIC)
