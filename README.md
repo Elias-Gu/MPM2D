@@ -166,10 +166,3 @@ const static float DT = 0.0001f;
 #define DRAW_NODES false        // not recommended (slow)
 ```
 <br><br>
-
-### In progress
-I am working on a more complete version that will include:
-- 3D 
-- Sparse Grid parallelisme (CUDA - OpenACC or OpenMP)
-- Implicit grid update
-- Other transfer schemes (MLS-MPM, PolyPIC)
