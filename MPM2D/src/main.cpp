@@ -1,7 +1,9 @@
-#include "solver.h"
-#include <GLFW/glfw3.h>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
+
+#include <GLFW/glfw3.h>
+
+#include "solver.h"
 
 
 /* Declarations */
@@ -62,6 +64,7 @@ void AddParticles()										// Add particle during the simulation
 /* -----------------------------------------------------------------------
 |								MAIN									 |
 ----------------------------------------------------------------------- */
+
 
 int main(int argc, char** argv)
 {

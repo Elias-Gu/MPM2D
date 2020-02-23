@@ -1,11 +1,12 @@
 #pragma once
 
-#include "node.h"
-#include "particle.h"
-#include <string>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <iomanip>
+#include <string>
+
+#include "particle.h"
+#include "node.h"
 
 /* The solver class is the link between particles and nodes.
 Transfers and updates are executed on solver instances. */

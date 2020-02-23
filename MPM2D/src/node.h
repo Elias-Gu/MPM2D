@@ -1,8 +1,9 @@
 #pragma once
 
-#include "constants.h"
-#include "border.h"
 #include <iostream>
+
+#include "border.h"
+#include "constants.h"
 
 /* The node class defines the background grid. */
 

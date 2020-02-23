@@ -13,15 +13,15 @@ const static int Y_GRID = 100;
 
 // Transfer
 #define INTERPOLATION 1									// [1] Cubic - [2] Quadratic
-const static float DT = 0.0005f;						// Time-step
+const static float DT = 0.001f;						// Time-step
 
 // Ouput
-#define RECORD_VIDEO true
+#define RECORD_VIDEO false
 #define WRITE_TO_FILE false								// Write to file disables visual output
 #define DRAW_NODES false								// Drawing node option
 
 // Material
-#define Material Elastic									// [Water] - [DrySand] - [Snow] - [Elastic]
+#define Material Water									// [Water] - [DrySand] - [Snow] - [Elastic]
 
 
 

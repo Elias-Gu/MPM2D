@@ -1,10 +1,12 @@
 #pragma once
 
-#include "constants.h"
-#include <PoissonGenerator/PoissonGenerator.h>
 #include <math.h>										
 #include <vector>
+
 #include <GLFW/glfw3.h>
+#include <PoissonGenerator/PoissonGenerator.h>
+
+#include "constants.h"
 
 /* The particle class contains data commun to all simulation.
 The material subclasses contains particular data and methods. */

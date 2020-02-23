@@ -1,9 +1,11 @@
 #pragma once
 
-#include "constants.h"
-#include <vector>
 #include <algorithm>
+#include <vector>
+
 #include <GLFW\glfw3.h>
+
+#include "constants.h"
 
 /* The border class defines the borders (lines in 2D).
 Interaction nodes-particles / borders defined here (collision, friction...). */
