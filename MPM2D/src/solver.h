@@ -46,16 +46,16 @@ public:
 
 	/* Static functions */
 	#if INTERPOLATION == 1
-	static float Bspline(float x)					// Cubic Bspline
+	static double Bspline(double x)					// Cubic Bspline
 	{
-		float W;
+		double W;
 		x = fabs(x);
 
 		if (x < 1)
-			W = (x*x*x / 2.0f - x * x + 2 / 3.0f);
+			W = (x*x*x / 2.0 - x * x + 2 / 3.0);
 
 		else if (x < 2)
-			W = (2 - x)*(2 - x)*(2 - x) / 6.0f;
+			W = (2 - x)*(2 - x)*(2 - x) / 6.0;
 
 		else
 			W = 0;
@@ -64,17 +64,17 @@ public:
 	}
 
 
-	static float dBspline(float x)					// Cubic Bspline derivative
+	static double dBspline(double x)					// Cubic Bspline derivative
 	{
-		float dW;
-		float x_abs;
+		double dW;
+		double x_abs;
 		x_abs = fabs(x);
 
 		if (x_abs < 1)
-			dW = 1.5f * x * x_abs - 2.0f * x;
+			dW = 1.5 * x * x_abs - 2.0 * x;
 
 		else if (x_abs < 2)
-			dW = -x * x_abs / 2.0f + 2 * x - 2 * x / x_abs;
+			dW = -x * x_abs / 2.0 + 2 * x - 2 * x / x_abs;
 
 		else
 			dW = 0;
@@ -84,16 +84,16 @@ public:
 
 
 	#elif INTERPOLATION == 2
-	static float Bspline(float x)
+	static double Bspline(double x)
 	{
-		float W;
+		double W;
 		x = fabs(x);
 
-		if (x < 0.5f)
-			W = -x * x + 3 / 4.0f;
+		if (x < 0.5)
+			W = -x * x + 3 / 4.0;
 
-		else if (x < 1.5f)
-			W = x * x / 2.0f - 3 * x / 2.0f + 9 / 8.0f;
+		else if (x < 1.5)
+			W = x * x / 2.0 - 3 * x / 2.0 + 9 / 8.0;
 		
 		else
 			W = 0;
@@ -102,17 +102,17 @@ public:
 	}
 
 
-	static float dBspline(float x)
+	static double dBspline(double x)
 	{
-		float dW;
-		float x_abs;
+		double dW;
+		double x_abs;
 		x_abs = fabs(x);
 
-		if (x_abs < 0.5f)
-			dW = -2.0f * x;
+		if (x_abs < 0.5)
+			dW = -2.0 * x;
 		
-		else if (x_abs < 1.5f)
-			dW = x - 3 / 2.0f * x / x_abs;
+		else if (x_abs < 1.5)
+			dW = x - 3 / 2.0 * x / x_abs;
 		
 		else
 			dW = 0;
@@ -122,7 +122,7 @@ public:
 	#endif
 
 
-	static float getWip(const Vector2f& dist)		// 2D weight
+	static double getWip(const Vector2f& dist)		// 2D weight
 	{
 		return Bspline(dist[0]) * Bspline(dist[1]);
 	}

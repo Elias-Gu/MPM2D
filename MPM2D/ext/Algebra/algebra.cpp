@@ -10,10 +10,10 @@
 Vector2f::Vector2f() {
 	val[0] = 0; val[1] = 0;
 }
-Vector2f::Vector2f(const float x) {
+Vector2f::Vector2f(const double x) {
 	val[0] = x; val[1] = x;
 }
-Vector2f::Vector2f(const float x0, const float x1) {
+Vector2f::Vector2f(const double x0, const double x1) {
 	val[0] = x0; val[1] = x1;
 }
 Vector2f::Vector2f(const Vector2f& V)
@@ -25,10 +25,10 @@ Vector2f::Vector2f(const Vector2f& V)
 /* Operators */
 
 // []
-float& Vector2f::operator[](int id) {
+double& Vector2f::operator[](int id) {
 	return val[id];
 }
-const float& Vector2f::operator[](int id) const {
+const double& Vector2f::operator[](int id) const {
 	return val[id];
 }
 
@@ -38,7 +38,7 @@ const Vector2f Vector2f::operator-() const {
 }
 
 // ||Vector||
-float Vector2f::norm() const {
+double Vector2f::norm() const {
 	return
 		sqrt(val[0] * val[0] + val[1] * val[1]);
 }
@@ -46,7 +46,7 @@ float Vector2f::norm() const {
 // Vector ^ (-1) (Element-wise inverse)
 const Vector2f Vector2f::inv() const {
 	return
-		Vector2f(1.0f / val[0], 1.0f / val[1]);
+		Vector2f(1.0 / val[0], 1.0 / val[1]);
 }
 
 // log(Vector) (Element-wise log /!\ if 0)
@@ -62,21 +62,21 @@ const Vector2f Vector2f::exp() const {
 }
 
 // sum(Vector) 
-float Vector2f::sum() const {
+double Vector2f::sum() const {
 	return val[0] + val[1];
 }
 
 // clamp(Vector) between low and high
-const Vector2f Vector2f::clamp(const float low, const float high) const {
+const Vector2f Vector2f::clamp(const double low, const double high) const {
 	return Vector2f(std::clamp(val[0], low, high),
 		std::clamp(val[1], low, high));
 }
 
 // SetData pointers
-void Vector2f::setData(const float x0, const float x1) {
+void Vector2f::setData(const double x0, const double x1) {
 	val[0] = x0; val[1] = x1;
 }
-void Vector2f::setData(const float x) {
+void Vector2f::setData(const double x) {
 	val[0] = x; val[1] = x;
 }
 
@@ -119,7 +119,7 @@ const Matrix2f Vector2f::outer_product(const Vector2f& V) const {
 }
 
 // Vector . Vector
-float Vector2f::dot(const Vector2f &V) const {
+double Vector2f::dot(const Vector2f &V) const {
 	return
 		val[0] * V.val[0] + val[1] * V.val[1];
 }
@@ -138,37 +138,37 @@ const Vector2f Vector2f::operator*(const Vector2f& V) const {
 /* Vector and Scalar */
 
 // Vector + Scalar
-const Vector2f Vector2f::operator+(const float& scal) const {
+const Vector2f Vector2f::operator+(const double& scal) const {
 	return Vector2f(*this) += scal;
 }
-Vector2f& Vector2f::operator+=(const float& scal) {
+Vector2f& Vector2f::operator+=(const double& scal) {
 	val[0] += scal; val[1] += scal;
 	return *this;
 }
 
 // Vector - Scalar
-const Vector2f Vector2f::operator-(const float& scal) const {
+const Vector2f Vector2f::operator-(const double& scal) const {
 	return Vector2f(*this) -= scal;
 }
-Vector2f& Vector2f::operator-=(const float& scal) {
+Vector2f& Vector2f::operator-=(const double& scal) {
 	val[0] -= scal; val[1] -= scal;
 	return *this;
 }
 
 // Vector * Scalar
-const Vector2f Vector2f::operator*(const float& scal) const {
+const Vector2f Vector2f::operator*(const double& scal) const {
 	return Vector2f(*this) *= scal;
 }
-Vector2f& Vector2f::operator*=(const float& scal) {
+Vector2f& Vector2f::operator*=(const double& scal) {
 	val[0] *= scal; val[1] *= scal;
 	return *this;
 }
 
 // Vector / Scalar
-const Vector2f Vector2f::operator/(const float& scal) const {
+const Vector2f Vector2f::operator/(const double& scal) const {
 	return Vector2f(*this) /= scal;
 }
-Vector2f& Vector2f::operator/=(const float& scal) {
+Vector2f& Vector2f::operator/=(const double& scal) {
 	val[0] /= scal; val[1] /= scal;
 	return *this;
 }
@@ -177,16 +177,16 @@ Vector2f& Vector2f::operator/=(const float& scal) {
 
 /* Supp */
 
-const Vector2f operator-(const float& scal, const Vector2f& V) {
+const Vector2f operator-(const double& scal, const Vector2f& V) {
 	return Vector2f(V) - scal;
 }
-const Vector2f operator+(const float& scal, const Vector2f& V) {
+const Vector2f operator+(const double& scal, const Vector2f& V) {
 	return Vector2f(V) + scal;
 }
-const Vector2f operator*(const float& scal, const Vector2f& V) {
+const Vector2f operator*(const double& scal, const Vector2f& V) {
 	return Vector2f(V) * scal;
 }
-const Vector2f operator/(const float& scal, const Vector2f& V) {
+const Vector2f operator/(const double& scal, const Vector2f& V) {
 	return Vector2f(V) / scal;
 }
 const std::ostream &operator<<(std::ostream &os, const Vector2f& V) {
@@ -208,12 +208,12 @@ Matrix2f::Matrix2f() {
 	val[0][0] = 0; val[0][1] = 0;
 	val[1][0] = 0; val[1][1] = 0;
 }
-Matrix2f::Matrix2f(const float x) {
+Matrix2f::Matrix2f(const double x) {
 	val[0][0] = x; val[0][1] = x;
 	val[1][0] = x; val[1][1] = x;
 }
-Matrix2f::Matrix2f(const float x00, const float x01,
-	const float x10, const float x11) {
+Matrix2f::Matrix2f(const double x00, const double x01,
+	const double x10, const double x11) {
 	val[0][0] = x00; val[0][1] = x01;
 	val[1][0] = x10; val[1][1] = x11;
 }
@@ -227,10 +227,10 @@ Matrix2f::Matrix2f(const Matrix2f& M) {
 /* Operators */
 
 // []
-float* Matrix2f::operator[](int id) {
+double* Matrix2f::operator[](int id) {
 	return val[id];
 }
-const float* Matrix2f::operator[](int id) const {
+const double* Matrix2f::operator[](int id) const {
 	return val[id];
 }
 
@@ -242,18 +242,18 @@ const Matrix2f Matrix2f::operator-() const {
 
 // Matrix^(-1)
 const Matrix2f Matrix2f::inv() const {
-	float det = Matrix2f(*this).det();
+	double det = Matrix2f(*this).det();
 	return Matrix2f(val[1][1], -val[0][1],
 		-val[1][0], val[0][0]) / det;
 }
 
 // tr(Matrix)
-float Matrix2f::trace() const {
+double Matrix2f::trace() const {
 	return val[0][0] + val[1][1];
 }
 
 // det(Matrix)
-float Matrix2f::det() const {
+double Matrix2f::det() const {
 	return val[0][0] * val[1][1] - val[0][1] * val[1][0];
 }
 
@@ -261,33 +261,33 @@ float Matrix2f::det() const {
 //http://www.ualberta.ca/~mlipsett/ENGM541/Readings/svd_ellis.pdf
 //https://github.com/victorliu/Cgeom/blob/master/geom_la.c
 void Matrix2f::svd(Matrix2f* U, Vector2f* Eps, Matrix2f* V) const {
-	float MATRIX_EPSILON = 1e-6f;
+	double MATRIX_EPSILON = 1e-6;
 	if (fabs(val[0][1] - val[1][0]) < MATRIX_EPSILON && fabs(val[0][1]) < MATRIX_EPSILON) {
-		U->setData(val[0][0] < 0.0f ? -1.0f : 1.0f, 0.0f, 0.0f, val[1][1] < 0.0f ? -1.0f : 1.0f);
+		U->setData(val[0][0] < 0.0 ? -1.0 : 1.0, 0.0, 0.0, val[1][1] < 0.0 ? -1.0 : 1.0);
 		Eps->setData(fabs(val[0][0]), fabs(val[1][1]));
-		V->setData(1.0f, 0.0f, 0.0f, 1.0f);
+		V->setData(1.0, 0.0, 0.0, 1.0);
 	}
 	else {
-		float j = val[0][0] * val[0][0] + val[0][1] * val[0][1],
+		double j = val[0][0] * val[0][0] + val[0][1] * val[0][1],
 			k = val[1][0] * val[1][0] + val[1][1] * val[1][1],
 			v_c = val[0][0] * val[1][0] + val[0][1] * val[1][1];
 		if (fabs(v_c) < MATRIX_EPSILON) {
-			float s1 = sqrt(j), s2 = fabs(j - k) < MATRIX_EPSILON ? s1 : sqrt(k);
+			double s1 = sqrt(j), s2 = fabs(j - k) < MATRIX_EPSILON ? s1 : sqrt(k);
 			Eps->setData(s1, s2);
-			V->setData(1.0f, 0.0f, 0.0f, 1.0f);
+			V->setData(1.0, 0.0, 0.0, 1.0);
 			U->setData(
 				val[0][0] / s1, val[1][0] / s2,
 				val[0][1] / s1, val[1][1] / s2);
 		}
 		else {
-			float jmk = j - k,
+			double jmk = j - k,
 				jpk = j + k,
 				root = sqrt(jmk*jmk + 4 * v_c*v_c),
 				eig = (jpk + root) / 2,
 				s1 = sqrt(eig),
 				s2 = fabs(root) < MATRIX_EPSILON ? s1 : sqrt((jpk - root) / 2);
 			Eps->setData(s1, s2);
-			float v_s = eig - j,
+			double v_s = eig - j,
 				len = sqrt(v_s*v_s + v_c * v_c);
 			v_c /= len;
 			v_s /= len;
@@ -304,17 +304,17 @@ void Matrix2f::svd(Matrix2f* U, Vector2f* Eps, Matrix2f* V) const {
 // polar decomposition
 // http://www.cs.cornell.edu/courses/cs4620/2014fa/lectures/polarnotes.pdf
 void Matrix2f::polar_decomp(Matrix2f* R, Matrix2f* S) const {
-	float th = atan2(val[1][0] - val[0][1], val[0][0] + val[1][1]);
+	double th = atan2(val[1][0] - val[0][1], val[0][0] + val[1][1]);
 	*R = Matrix2f(cos(th), -sin(th), sin(th), cos(th));
 	*S = R->transpose() * *this;
 }
 
 // SetData pointers
-void Matrix2f::setData(const float x00, const float x01, const float x10, const float x11) {
+void Matrix2f::setData(const double x00, const double x01, const double x10, const double x11) {
 	val[0][0] = x00; val[0][1] = x01;
 	val[1][0] = x10; val[1][1] = x11;
 }
-void Matrix2f::setData(const float x) {
+void Matrix2f::setData(const double x) {
 	val[0][0] = x; val[0][1] = x;
 	val[1][0] = x; val[1][1] = x;
 }
@@ -402,10 +402,10 @@ const Vector2f Matrix2f::operator*(const Vector2f& V) const {
 /* Matrix and Scalar */
 
 // Matrix + scalar
-const Matrix2f Matrix2f::operator+(const float& scal) const {
+const Matrix2f Matrix2f::operator+(const double& scal) const {
 	return Matrix2f(*this) += scal;
 }
-Matrix2f& Matrix2f::operator+=(const float& scal) {
+Matrix2f& Matrix2f::operator+=(const double& scal) {
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < 2; j++)
 			val[i][j] += scal;
@@ -413,10 +413,10 @@ Matrix2f& Matrix2f::operator+=(const float& scal) {
 }
 
 // Matrix - scalar
-const Matrix2f Matrix2f::operator-(const float& scal) const {
+const Matrix2f Matrix2f::operator-(const double& scal) const {
 	return Matrix2f(*this) -= scal;
 }
-Matrix2f& Matrix2f::operator-=(const float& scal) {
+Matrix2f& Matrix2f::operator-=(const double& scal) {
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < 2; j++)
 			val[i][j] -= scal;
@@ -424,10 +424,10 @@ Matrix2f& Matrix2f::operator-=(const float& scal) {
 }
 
 // Matrix * scalar
-const Matrix2f Matrix2f::operator*(const float& scal) const {
+const Matrix2f Matrix2f::operator*(const double& scal) const {
 	return Matrix2f(*this) *= scal;
 }
-Matrix2f& Matrix2f::operator*=(const float& scal) {
+Matrix2f& Matrix2f::operator*=(const double& scal) {
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < 2; j++)
 			val[i][j] *= scal;
@@ -435,10 +435,10 @@ Matrix2f& Matrix2f::operator*=(const float& scal) {
 }
 
 // Matrix / scalar
-const Matrix2f Matrix2f::operator/(const float& scal) const {
+const Matrix2f Matrix2f::operator/(const double& scal) const {
 	return Matrix2f(*this) /= scal;
 }
-Matrix2f& Matrix2f::operator/=(const float& scal) {
+Matrix2f& Matrix2f::operator/=(const double& scal) {
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < 2; j++)
 			val[i][j] /= scal;
@@ -449,16 +449,16 @@ Matrix2f& Matrix2f::operator/=(const float& scal) {
 
 /* Supp */
 
-const Matrix2f operator-(const float& scal, const Matrix2f& M) {
+const Matrix2f operator-(const double& scal, const Matrix2f& M) {
 	return Matrix2f(M) - scal;
 }
-const Matrix2f operator+(const float& scal, const Matrix2f& M) {
+const Matrix2f operator+(const double& scal, const Matrix2f& M) {
 	return Matrix2f(M) + scal;
 }
-const Matrix2f operator*(const float& scal, const Matrix2f& M) {
+const Matrix2f operator*(const double& scal, const Matrix2f& M) {
 	return Matrix2f(M) * scal;
 }
-const Matrix2f operator/(const float& scal, const Matrix2f& M) {
+const Matrix2f operator/(const double& scal, const Matrix2f& M) {
 	return Matrix2f(M) / scal;
 }
 const std::ostream &operator<<(std::ostream &os, const Matrix2f& M) {

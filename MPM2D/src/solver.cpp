@@ -45,11 +45,11 @@ void Solver::P2G()
 
 				// Distance and weight
 				Vector2f dist = particles[p].Xp - nodes[node_id].Xi;		
-				float Wip = getWip(dist);
+				double Wip = getWip(dist);
 				Vector2f dWip = getdWip(dist);
 
 				// Pre-compute node mass, node velocity and pre-update force increment (APIC)
-				float inMi = Wip * particles[p].Mp;							
+				double inMi = Wip * particles[p].Mp;							
 				Vector2f inVi = Wip * particles[p].Mp *
 					(particles[p].Vp + Dp_scal * H_INV * H_INV * particles[p].Bp * (-dist));
 
@@ -126,7 +126,7 @@ void Solver::G2P()
 				
 				// Distance and weight
 				Vector2f dist = particles[p].Xp - nodes[node_id].Xi;
-				float Wip = getWip(dist);
+				double Wip = getWip(dist);
 				
 				// Update velocity and velocity field (APIC)
 				particles[p].Vp += Wip * nodes[node_id].Vi_fri;
@@ -163,7 +163,7 @@ void Solver::UpdateParticles()
 
 				// Distance and weight
 				Vector2f dist = Xp_buff - nodes[node_id].Xi;
-				float Wip = getWip(dist);
+				double Wip = getWip(dist);
 				Vector2f dWip = getdWip(dist);
 
 				// Update position and nodal deformation
@@ -223,9 +223,9 @@ void Solver::WriteToFile(int frame)
 	output << "ply" << std::endl;
 	output << "format ascii 1.0" << std::endl;
 	output << "element vertex " << particles.size() << std::endl;
-	output << "property float x" << std::endl;
-	output << "property float y" << std::endl;
-	output << "property float z" << std::endl;
+	output << "property double x" << std::endl;
+	output << "property double y" << std::endl;
+	output << "property double z" << std::endl;
 	output << "element face 0" << std::endl;
 	output << "property list uint int vertex_indices" << std::endl;
 	output << "end_header" << std::endl;

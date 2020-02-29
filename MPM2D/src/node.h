@@ -12,7 +12,7 @@ class Node
 public:
 
 	/* Data */
-	float Mi;											// Node mass
+	double Mi;											// Node mass
 
 	Vector2f Xi;										// Node position
 	Vector2f Vi;										// Node velocity, before update and after force
@@ -51,7 +51,7 @@ public:
 
 		for (int y = 0; y <= Y_GRID; y++)
 			for (int x = 0; x <= X_GRID; x++)
-				outNodes.push_back(Node(Vector2f((float)x, (float)y)));
+				outNodes.push_back(Node(Vector2f((double)x, (double)y)));
 
 		return outNodes;
 	}

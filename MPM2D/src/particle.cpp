@@ -1,7 +1,7 @@
 #include "particle.h"
 
 /* Constructors */
-Particle::Particle(const float inVp0, const float inMp,
+Particle::Particle(const double inVp0, const double inMp,
 	const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp)
 {
 	Vp0 = inVp0;
@@ -22,25 +22,25 @@ Particle::Particle(const float inVp0, const float inMp,
 ----------------------------------------------------------------------- */
 
 
-Water::Water(const float inVp0, const float inMp,
+Water::Water(const double inVp0, const double inMp,
 	const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp)
 	: Particle(inVp0, inMp, inXp, inVp, inBp)
 {
-	Ap = 0.0f;
-	Jp = 1.0f;
+	Ap = 0.0;
+	Jp = 1.0;
 }
 
 
 Water::Water(Particle p)
 	: Particle(p.Vp0, p.Mp, p.Xp, p.Vp, p.Bp)
 {
-	Ap = 0.0f;
-	Jp = 1.0f;
+	Ap = 0.0;
+	Jp = 1.0;
 }
 
 
 //
-DrySand::DrySand(const float inVp0, const float inMp,
+DrySand::DrySand(const double inVp0, const double inMp,
 	const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp)
 	: Particle(inVp0, inMp, inXp, inVp, inBp)
 {
@@ -49,11 +49,11 @@ DrySand::DrySand(const float inVp0, const float inMp,
 	Fe.setIdentity(); FeTr.setIdentity();
 	Fp.setIdentity(); FpTr.setIdentity();
 
-	q = 0.0f;
-	float phi = H0 + (H1 * q - H3) * exp(-H2 * q);
-	alpha = sqrt(2 / 3.0f) * 2 * sin(phi) / (3 - sin(phi));
+	q = 0.0;
+	double phi = H0 + (H1 * q - H3) * exp(-H2 * q);
+	alpha = sqrt(2 / 3.0) * 2 * sin(phi) / (3 - sin(phi));
 
-	r = ((float)rand() / (RAND_MAX));
+	r = ((double)rand() / (RAND_MAX));
 }
 
 
@@ -65,16 +65,16 @@ DrySand::DrySand(Particle p)
 	Fe.setIdentity(); FeTr.setIdentity();
 	Fp.setIdentity(); FpTr.setIdentity();
 
-	q = 0.0f;
-	float phi = H0 + (H1 * q - H3) * exp(-H2 * q);
-	alpha = sqrt(2 / 3.0f) * 2 * sin(phi) / (3 - sin(phi));
+	q = 0.0;
+	double phi = H0 + (H1 * q - H3) * exp(-H2 * q);
+	alpha = sqrt(2 / 3.0) * 2 * sin(phi) / (3 - sin(phi));
 
-	r = ((float)rand() / (RAND_MAX));
+	r = ((double)rand() / (RAND_MAX));
 }
 
 
 //
-Snow::Snow(const float inVp0, const float inMp,
+Snow::Snow(const double inVp0, const double inMp,
 	const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp)
 	: Particle(inVp0, inMp, inXp, inVp, inBp)
 {
@@ -82,13 +82,13 @@ Snow::Snow(const float inVp0, const float inMp,
 
 	Fe.setIdentity(); FeTr.setIdentity();
 	Fp.setIdentity(); FpTr.setIdentity();
-	Je = 1.0f; Jp = 1.0f;
+	Je = 1.0; Jp = 1.0;
 
 	lam = LAM_snow;
 	mu = MU_snow;
 
-	s = ((float)rand() / (RAND_MAX)) * 7;
-	r = 1 - ((float)rand() / (RAND_MAX)) * 0.23f;
+	s = ((double)rand() / (RAND_MAX)) * 7;
+	r = 1 - ((double)rand() / (RAND_MAX)) * 0.23;
 }
 
 
@@ -99,20 +99,20 @@ Snow::Snow(Particle p)
 
 	Fe.setIdentity(); FeTr.setIdentity();
 	Fp.setIdentity(); FpTr.setIdentity();
-	Je = 1.0f; Jp = 1.0f;
+	Je = 1.0; Jp = 1.0;
 
 	lam = LAM_snow;
 	mu = MU_snow;
 
-	s = ((float)rand() / (RAND_MAX)) * 7;
-	r = 1 - ((float)rand() / (RAND_MAX)) * 0.23f;
+	s = ((double)rand() / (RAND_MAX)) * 7;
+	r = 1 - ((double)rand() / (RAND_MAX)) * 0.23;
 }
 
 
 //
-Elastic::Elastic(const float inVp0, const float inMp,
+Elastic::Elastic(const double inVp0, const double inMp,
 	const Vector2f& inXp, const Vector2f& inVp, const Matrix2f& inBp,
-	const float inlam, const float inmu, const float inr, const float ing, const float inb)
+	const double inlam, const double inmu, const double inr, const double ing, const double inb)
 	: Particle(inVp0, inMp, inXp, inVp, inBp)
 {
 	Ap.setZeros();
@@ -139,7 +139,7 @@ Elastic::Elastic(Particle p)
 // Water: http://www.math.ucla.edu/~jteran/papers/PGKFTJM17.pdf
 void Water::ConstitutiveModel()
 {
-	float dJp = -K_water * (1.0f / pow(Jp, GAMMA_water) - 1.0f);	// Deformation gradient increment
+	double dJp = -K_water * (1.0 / pow(Jp, GAMMA_water) - 1.0);	// Deformation gradient increment
 	Ap = dJp * Vp0 * Jp;											// For computation and clarity
 }
 
@@ -178,7 +178,7 @@ void DrySand::Plasticity()
 	Vector2f Eps;
 	FeTr.svd(&U, &Eps, &V);
 
-	Vector2f T; float dq;
+	Vector2f T; double dq;
 	DrySand::Projection(Eps, &T, &dq);
 
 	// Elastic and plastic state
@@ -187,17 +187,17 @@ void DrySand::Plasticity()
 
 	// hardening
 	q += dq;
-	float phi = H0 + (H1 *q - H3)*exp(-H2 * q);
-	alpha = (float)(sqrt(2.0 / 3.0) * (2.0 * sin(phi)) / (3.0f - sin(phi)));
+	double phi = H0 + (H1 *q - H3)*exp(-H2 * q);
+	alpha = (double)(sqrt(2.0 / 3.0) * (2.0 * sin(phi)) / (3.0 - sin(phi)));
 }
 
 
-void DrySand::Projection(const Vector2f& Eps, Vector2f* T, float* dq)
+void DrySand::Projection(const Vector2f& Eps, Vector2f* T, double* dq)
 {
 	Vector2f e, e_c;
 
 	e = Eps.log();
-	e_c = e - e.sum() / 2.0f * Vector2f(1);
+	e_c = e - e.sum() / 2.0 * Vector2f(1);
 
 	if (e_c.norm() < 1e-8 || e.sum() > 0) {
 		T->setOnes();
@@ -205,7 +205,7 @@ void DrySand::Projection(const Vector2f& Eps, Vector2f* T, float* dq)
 		return;										// Projection to the tip of the cone
 	}
 
-	float dg = e_c.norm() 
+	double dg = e_c.norm() 
 		+ (LAMBDA_dry_sand + MU_dry_sand) / MU_dry_sand * e.sum() * alpha;
 
 	if (dg <= 0) {
@@ -258,7 +258,7 @@ void Snow::Plasticity()
 	Jp = Fp.det();
 
 	// Hardening
-	float exp = std::exp(KSI_snow*(1.0f - Jp));
+	double exp = std::exp(KSI_snow*(1.0 - Jp));
 	lam = LAM_snow * exp;
 	mu = MU_snow * exp;
 }
@@ -269,7 +269,7 @@ void Elastic::ConstitutiveModel()
 {
 	Matrix2f Re, Se;
 	Fe.polar_decomp(&Re, &Se);
-	float Je = Fe.det();
+	double Je = Fe.det();
 
 	Matrix2f dFe = 2 * mu*(Fe - Re)* Fe.transpose() +  lam * (Je - 1) * Je * Matrix2f(1, 0, 0, 1);
 	Ap = dFe * Vp0;
@@ -287,19 +287,19 @@ void Elastic::UpdateDeformation(const Matrix2f& T)
 ----------------------------------------------------------------------- */
 
 
-float Water::grey[3] = { 0.75f, 0.75f, 0.75f };						// Define color gradient
-float Water::green[3] = { 0.2f, 0.8f, 0.8f };
-float Water::blue[3] = { 0.3f, 0.7f, 1.0f };
-float Water::h_color = 40.0f;
-float Water::l_color = 20.0f;
-float Water::d_color = h_color - l_color;
+double Water::grey[3] = { 0.75f, 0.75f, 0.75f };						// Define color gradient
+double Water::green[3] = { 0.2f, 0.8f, 0.8f };
+double Water::blue[3] = { 0.3f, 0.7f, 1.0f };
+double Water::h_color = 40.0f;
+double Water::l_color = 20.0f;
+double Water::d_color = h_color - l_color;
 
 
 void Water::DrawParticle()
 {
 	glPointSize(12);
 
-	float x = Vp.norm();
+	double x = Vp.norm();
 
 	if (x / l_color < 1)
 		glColor3f(

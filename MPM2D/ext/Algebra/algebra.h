@@ -11,14 +11,14 @@ class Vector2f
 public:
 
 	/* Data */
-	float val[2];
+	double val[2];
 
 
 
 	/* Constructors */
 	Vector2f();
-	Vector2f(const float x);
-	Vector2f(const float x0, const float x1);
+	Vector2f(const double x);
+	Vector2f(const double x0, const double x1);
 	Vector2f(const Vector2f& V);
 	virtual ~Vector2f() {};
 
@@ -27,14 +27,14 @@ public:
 	/* Operators */
 
 	// []
-	float& operator[](int id);
-	const float& operator[](int id) const;
+	double& operator[](int id);
+	const double& operator[](int id) const;
 
 	// -Vector
 	const Vector2f operator-() const;
 
 	// ||Vector||
-	float norm() const;
+	double norm() const;
 
 	// Vector ^ (-1) (Element-wise inverse)
 	const Vector2f inv() const;
@@ -46,14 +46,14 @@ public:
 	const Vector2f exp() const;
 
 	// sum(Vector) 
-	float sum() const;
+	double sum() const;
 
 	// clamp(Vector) between low and high
-	const Vector2f clamp(const float low, const float high) const;
+	const Vector2f clamp(const double low, const double high) const;
 
 	// SetData pointers
-	void setData(const float x0, const float x1);
-	void setData(const float x);
+	void setData(const double x0, const double x1);
+	void setData(const double x);
 
 	// Set particular values
 	void setZeros();
@@ -75,7 +75,7 @@ public:
 	const Matrix2f outer_product(const Vector2f& V) const;
 
 	// Vector . Vector
-	float dot(const Vector2f &V) const;
+	double dot(const Vector2f &V) const;
 
 	// Vector * Vector (Element-wise product)
 	Vector2f& operator*=(const Vector2f& V);
@@ -85,28 +85,28 @@ public:
 	/* Vector and Scalar */
 
 	// Vector + Scalar
-	const Vector2f operator+(const float& scal) const;
-	Vector2f& operator+=(const float& scal);
+	const Vector2f operator+(const double& scal) const;
+	Vector2f& operator+=(const double& scal);
 
 	// Vector - Scalar
-	const Vector2f operator-(const float& scal) const;
-	Vector2f& operator-=(const float& scal);
+	const Vector2f operator-(const double& scal) const;
+	Vector2f& operator-=(const double& scal);
 
 	// Vector * Scalar
-	const Vector2f operator*(const float& scal) const;
-	Vector2f& operator*=(const float& scal);
+	const Vector2f operator*(const double& scal) const;
+	Vector2f& operator*=(const double& scal);
 
 	// Vector / Scalar
-	const Vector2f operator/(const float& scal) const;
-	Vector2f& operator/=(const float& scal);
+	const Vector2f operator/(const double& scal) const;
+	Vector2f& operator/=(const double& scal);
 };
 
 /* Supp */
 
-const Vector2f operator-(const float& scal, const Vector2f& V);
-const Vector2f operator+(const float& scal, const Vector2f& V);
-const Vector2f operator*(const float& scal, const Vector2f& V);
-const Vector2f operator/(const float& scal, const Vector2f& V);
+const Vector2f operator-(const double& scal, const Vector2f& V);
+const Vector2f operator+(const double& scal, const Vector2f& V);
+const Vector2f operator*(const double& scal, const Vector2f& V);
+const Vector2f operator/(const double& scal, const Vector2f& V);
 const std::ostream &operator<<(std::ostream &os, const Vector2f& V);
 #pragma endregion "Vector2f"
 
@@ -117,15 +117,15 @@ class Matrix2f
 public:
 
 	/* Data. [row][column] -*/
-	float val[2][2];
+	double val[2][2];
 
 
 
 	/* Constructors */
 	Matrix2f();
-	Matrix2f(const float x);
-	Matrix2f(const float x00, const float x01,
-		const float x10, const float x11);
+	Matrix2f(const double x);
+	Matrix2f(const double x00, const double x01,
+		const double x10, const double x11);
 	Matrix2f(const Matrix2f& M);
 	virtual ~Matrix2f() {};
 
@@ -134,8 +134,8 @@ public:
 	/* Operators */
 
 	// []
-	float* operator[](int id);
-	const float* operator[](int id) const;
+	double* operator[](int id);
+	const double* operator[](int id) const;
 
 	// -Matrix
 	const Matrix2f operator-() const;
@@ -144,10 +144,10 @@ public:
 	const Matrix2f inv() const;
 
 	// tr(Matrix)
-	float trace() const;
+	double trace() const;
 
 	// det(Matrix)
-	float det() const;
+	double det() const;
 
 	// SVD(Matrix)
 	void svd(Matrix2f* U, Vector2f* Eps, Matrix2f* V) const;
@@ -156,8 +156,8 @@ public:
 	void polar_decomp(Matrix2f* R, Matrix2f* S) const;
 
 	// SetData pointers
-	void setData(const float x00, const float x01, const float x10, const float x11);
-	void setData(const float x);
+	void setData(const double x00, const double x01, const double x10, const double x11);
+	void setData(const double x);
 
 	// Set particular values
 	void setZeros();
@@ -198,27 +198,27 @@ public:
 	/* Matrix and Scalar */
 
 	// Matrix + scalar
-	const Matrix2f operator+(const float& scal) const;
-	Matrix2f& operator+=(const float& scal);
+	const Matrix2f operator+(const double& scal) const;
+	Matrix2f& operator+=(const double& scal);
 
 	// Matrix - scalar
-	const Matrix2f operator-(const float& scal) const;
-	Matrix2f& operator-=(const float& scal);
+	const Matrix2f operator-(const double& scal) const;
+	Matrix2f& operator-=(const double& scal);
 
 	// Matrix * scalar
-	const Matrix2f operator*(const float& scal) const;
-	Matrix2f& operator*=(const float& scal);
+	const Matrix2f operator*(const double& scal) const;
+	Matrix2f& operator*=(const double& scal);
 
 	// Matrix / scalar
-	const Matrix2f operator/(const float& scal) const;
-	Matrix2f& operator/=(const float& scal);
+	const Matrix2f operator/(const double& scal) const;
+	Matrix2f& operator/=(const double& scal);
 };
 
 /* Supp */
 
-const Matrix2f operator-(const float& scal, const Matrix2f& M);
-const Matrix2f operator+(const float& scal, const Matrix2f& M);
-const Matrix2f operator*(const float& scal, const Matrix2f& M);
-const Matrix2f operator/(const float& scal, const Matrix2f& M);
+const Matrix2f operator-(const double& scal, const Matrix2f& M);
+const Matrix2f operator+(const double& scal, const Matrix2f& M);
+const Matrix2f operator*(const double& scal, const Matrix2f& M);
+const Matrix2f operator/(const double& scal, const Matrix2f& M);
 const std::ostream &operator<<(std::ostream &os, const Matrix2f& M);
 #pragma endregion "Matrix2f"

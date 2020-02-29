@@ -3,7 +3,7 @@
 /* Constructors */
 Node::Node(const Vector2f& inXi)
 {
-	Mi = 0.0f;
+	Mi = 0.0;
 
 	Xi = inXi;
 	Vi.setZeros();
@@ -41,7 +41,7 @@ void Node::NodeFrictions()
 
 void Node::ResetNode()
 {
-	Mi = 0.0f;
+	Mi = 0.0;
 	Vi.setZeros();
 	Fi.setZeros();
 	CollisionObjects.clear();
