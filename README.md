@@ -166,6 +166,3 @@ const static float DT = 0.0001f;
 #define DRAW_NODES false        // not recommended (slow)
 ```
 <br><br>
-
-
-[![HitCount](http://hits.dwyl.com/Elias-Gu/MPM2D.svg)](http://hits.dwyl.com/Elias-Gu/MPM2D)
