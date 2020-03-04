@@ -27,7 +27,6 @@ It can be summarize in 4 main steps:
 2. Update node state (apply forces)
 3. Transfer data from grid nodes to particles
 4. Update particles state
-<br><br>
 
 #### Papers implemented
 The following papers are implemented here:
@@ -36,6 +35,7 @@ The following papers are implemented here:
 - [An angular momentum conserving affine-particle-in-cell
 method](https://www.math.ucla.edu/~jteran/papers/JST17.pdf)
 - [A material point method for snow simulation](https://www.math.ucla.edu/~jteran/papers/SSCTS13.pdf)
+<br><br>
 
 ## Dependencies
 The following libraries are includes in the `ext/` directory:
