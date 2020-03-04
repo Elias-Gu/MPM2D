@@ -13,7 +13,8 @@
 <br><br>
 
 ## Overview
-C++ implementation of the Material Point Method.
+
+#### C++ implementation of the Material Point Method.
 
 The [Material Point Method](https://www.seas.upenn.edu/~cffjiang/research/mpmcourse/mpmcourse.pdf) is a numerical technique used to simulate the behavior of continuum materials.
 
@@ -27,6 +28,14 @@ It can be summarize in 4 main steps:
 3. Transfer data from grid nodes to particles
 4. Update particles state
 <br><br>
+
+#### Papers implemented
+The following papers are implemented here:
+- [Multi-species simulation of porous sand and water mixtures](https://www.math.ucla.edu/~jteran/papers/PGKFTJM17.pdf) (partially)
+- [Drucker-Prager Elastoplasticity for Sand Animation](https://www.math.ucla.edu/~jteran/papers/KGPSJT16.pdf)
+- [An angular momentum conserving affine-particle-in-cell
+method](https://www.math.ucla.edu/~jteran/papers/JST17.pdf)
+- [A material point method for snow simulation](https://www.math.ucla.edu/~jteran/papers/SSCTS13.pdf)
 
 ## Dependencies
 The following libraries are includes in the `ext/` directory:
