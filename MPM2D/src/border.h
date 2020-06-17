@@ -53,7 +53,7 @@ public:
 		Corners.push_back(Vector2f(CUB, Y_GRID -  CUB));
 		outBorders.push_back(Border(2, Vector2f(1, 0), Corners));
 		Corners.clear();
-
+		
 		/* Right border */
 		Corners.push_back(Vector2f(X_GRID - CUB, CUB));
 		Corners.push_back(Vector2f(X_GRID - CUB, Y_GRID - CUB));
