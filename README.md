@@ -1,9 +1,11 @@
 # MPM2D
 
 2D implementation of the Material Point Method.
+
 ![water](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/water.gif)
 ![snow](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/snow.gif)
 ![elastic](https://github.com/Elias-Gu/MPM2D//raw/master/MPM2D/out/elastic.gif)
+
 ## Sections
 - [Overview](#Overview)
 - [Dependencies](#Dependencies)
@@ -39,14 +41,16 @@ method](https://www.math.ucla.edu/~jteran/papers/JST17.pdf)
 
 ## Dependencies
 The following libraries are includes in the `ext/` directory:
-- [OpenGL and GLFW](https://www.glfw.org/)
-        - Visual.
 - [Poisson Generator](https://github.com/corporateshark/poisson-disk-generator)
         - Initialize particle position.
 - [Algebra](https://github.com/Elias-Gu/MPM2D/tree/master/MPM2D/ext/Algebra)
-        - My own 2D linear algebra library.
+        - Little 2D linear algebra library.
+
+This project additionally requires the following libraries:
+- [OpenGL and GLFW](https://www.glfw.org/)
+        - Visuals.
 - [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
-        - Alternatively, `Eigen` can be used to replace `Algebra`, but it is not as fast. The source code is in `ext/Eigen/MPM2D/src/` (not updated).
+        - `Eigen` can be used to replace `Algebra`, but it is not as fast. The source code is in `ext/Eigen/MPM2D/src/` (not updated).
 
 The followings are optional dependencies :
 - [ffmpeg](https://www.ffmpeg.org/)
@@ -69,7 +73,7 @@ The code, located in `src/`, is structured as following:
 
 #### Characteristics:
 Here are the main features of this implementation:
-- Sand, Water, Snow and purely elastic simulatiosn already implemented
+- Sand, Water, Snow and purely elastic simulations already implemented
 - 2D.
 - Affine-Particle-in-Cell ([APIC](http://www.math.ucla.edu/~jteran/papers/JSSTS15.pdf)) transfer type.
 -  B-Spline Quadratic or Cubic interpolation functions (Quadratic is faster, but not as precise).
