@@ -18,7 +18,7 @@
 
 #### C++ implementation of the Material Point Method.
 
-The [Material Point Method](https://www.seas.upenn.edu/~cffjiang/research/mpmcourse/mpmcourse.pdf) is a numerical technique used to simulate the behavior of continuum materials.
+The [Material Point Method](https://dl.acm.org/doi/pdf/10.1145/2897826.2927348) is a numerical technique used to simulate the behavior of continuum materials.
 
 The continuum body is described by a number a Lagrangian elements : the material points.
 Kinematic equations are solved on the material points  
@@ -32,11 +32,11 @@ It can be summarize in 4 main steps:
 
 #### Papers implemented
 The following papers are implemented here:
-- [Multi-species simulation of porous sand and water mixtures](https://www.math.ucla.edu/~jteran/papers/PGKFTJM17.pdf) (partially)
-- [Drucker-Prager Elastoplasticity for Sand Animation](https://www.math.ucla.edu/~jteran/papers/KGPSJT16.pdf)
+- [Multi-species simulation of porous sand and water mixtures](https://dl.acm.org/doi/pdf/10.1145/3072959.3073651) (partially)
+- [Drucker-Prager Elastoplasticity for Sand Animation](https://dl.acm.org/doi/pdf/10.1145/2897824.2925906)
 - [An angular momentum conserving affine-particle-in-cell
-method](https://www.math.ucla.edu/~jteran/papers/JST17.pdf)
-- [A material point method for snow simulation](https://www.math.ucla.edu/~jteran/papers/SSCTS13.pdf)
+method](https://arxiv.org/pdf/1603.06188.pdf)
+- [A material point method for snow simulation](https://dl.acm.org/doi/pdf/10.1145/2461912.2461948)
 <br><br>
 
 ## Dependencies
@@ -75,7 +75,7 @@ The code, located in `src/`, is structured as following:
 Here are the main features of this implementation:
 - Sand, Water, Snow and purely elastic simulations already implemented
 - 2D.
-- Affine-Particle-in-Cell ([APIC](http://www.math.ucla.edu/~jteran/papers/JSSTS15.pdf)) transfer type.
+- Affine-Particle-in-Cell ([APIC](https://arxiv.org/pdf/1603.06188.pdf)) transfer type.
 -  B-Spline Quadratic or Cubic interpolation functions (Quadratic is faster, but not as precise).
 - Node forces are updated with an explicit method.
 - The domain has to be a convex geometry (for collision detection).
